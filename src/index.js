@@ -1,17 +1,35 @@
-import React from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import firebase from "firebase";
+import 'firebase/firestore'
+import 'firebase/auth'
+
+
+
+// Initialize Firebase
+firebase.initializeApp({
+    apiKey: "AIzaSyDFuGG1kSqUgmNeIYOHxzwokpZoCWwaooc",
+    authDomain: "chat-react-test-e535c.firebaseapp.com",
+    projectId: "chat-react-test-e535c",
+    storageBucket: "chat-react-test-e535c.appspot.com",
+    messagingSenderId: "490175842437",
+    appId: "1:490175842437:web:7b457a166c5ed76a2e41ec",
+    measurementId: "G-DHHY2NCKT9"
+});
+
+export const Context = createContext(null)
+
+const auth = firebase.auth()
+const firestore = firebase.firestore()
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Context.Provider value={{
+      firebase,
+      auth,
+      firestore
+  }}>
+      <App />
+  </Context.Provider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
